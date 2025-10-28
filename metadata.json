@@ -1,0 +1,8 @@
+{
+  "name": "AutoHub - Car Maintenance Community",
+  "description": "A community-driven platform for car owners, enthusiasts, and mechanics to share maintenance knowledge, tutorials, join discussions, and find local events.",
+  "requestFramePermissions": [
+    "geolocation",
+    "microphone"
+  ]
+}
