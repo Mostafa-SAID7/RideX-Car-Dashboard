@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import FeaturedCarCard from '../components/dashboard/FeaturedCarCard';
 import CarListCard from '../components/dashboard/CarListCard';
 import { TOP_SELLING_CARS, CAR_CATEGORIES, ANALYTICS_CARDS, COMPLETED_PAYMENT } from '../data/cars';
+import { cn } from '../lib/utils';
 
 const ArrowUpRight = () => (
   <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -10,7 +11,7 @@ const ArrowUpRight = () => (
 );
 
 const SearchIcon = () => (
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-muted">
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-muted-foreground">
     <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
   </svg>
 );
@@ -31,7 +32,7 @@ const Overview: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState<string>('Crossover');
 
   return (
-    <div className="dashboard-grid">
+    <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-5">
 
       {/* ── LEFT COLUMN ── */}
       <div className="flex flex-col gap-5">
@@ -39,22 +40,22 @@ const Overview: React.FC = () => {
         {/* Hero Header */}
         <div className="flex flex-col gap-4">
           <div className="flex items-start gap-3">
-            <button className="icon-btn-circle flex-shrink-0 mt-1">
+            <button className="w-[38px] h-[38px] rounded-full border border-border bg-card shadow-[0_2px_10px_0_rgba(0,0,0,0.04)] flex items-center justify-center shrink-0 mt-1 cursor-pointer">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
             </button>
-            <h1 className="text-hero">
+            <h1 className="text-4xl font-semibold leading-tight tracking-tight">
               Explore Cars That Match{' '}
-              <em style={{ fontStyle: 'italic' }}>Your Lifestyle</em>
+              <em className="italic font-serif">Your Lifestyle</em>
             </h1>
           </div>
 
           {/* Search Row */}
           <div className="flex gap-3 items-center">
-            <div className="search-bar">
+            <div className="flex items-center gap-2 px-4 py-2 rounded-full border border-border bg-transparent flex-1 max-w-[300px]">
               <SearchIcon />
-              <input type="text" placeholder="Tesla model y" className="search-input" />
+              <input type="text" placeholder="Tesla model y" className="border-none bg-transparent outline-none text-sm w-full text-foreground placeholder:text-muted-foreground" />
             </div>
-            <button className="icon-btn-circle">
+            <button className="w-[38px] h-[38px] rounded-full border border-border bg-card shadow-[0_2px_10px_0_rgba(0,0,0,0.04)] flex items-center justify-center cursor-pointer">
               <FilterIcon />
             </button>
           </div>
@@ -64,7 +65,10 @@ const Overview: React.FC = () => {
             {CAR_CATEGORIES.map(cat => (
               <button
                 key={cat}
-                className={`filter-pill${activeCategory === cat ? ' active' : ''}`}
+                className={cn(
+                  "px-5 py-2 rounded-full border border-border bg-transparent text-sm text-muted-foreground cursor-pointer transition-all hover:border-primary hover:text-primary",
+                  activeCategory === cat && "border-primary text-primary font-semibold"
+                )}
                 onClick={() => setActiveCategory(cat)}
               >
                 {cat}
@@ -79,34 +83,34 @@ const Overview: React.FC = () => {
         {/* Analytics Cards Row */}
         <div className="flex gap-4">
           {ANALYTICS_CARDS.map(card => (
-            <div key={card.id} className="card card-padded-sm flex-1" style={{ paddingBottom: '2rem' }}>
+            <div key={card.id} className="bg-card rounded-[1.5rem] shadow-[0_2px_10px_0_rgba(0,0,0,0.04)] p-5 flex-1 relative overflow-hidden pb-8">
               <div className="flex justify-between items-start mb-3">
                 <div className="flex items-center gap-2">
-                  <div className="flex items-center justify-center rounded-lg bg-gray-50 p-2">
+                  <div className="flex items-center justify-center rounded-lg bg-gray-50 p-2 text-foreground">
                     <AnalyticsIcon id={card.id} />
                   </div>
                   <div>
-                    <p className="text-label">{card.title}</p>
-                    <p className="text-meta text-muted">{card.subtitle}</p>
+                    <p className="text-sm font-medium">{card.title}</p>
+                    <p className="text-[0.8125rem] text-muted-foreground">{card.subtitle}</p>
                   </div>
                 </div>
-                <button className="icon-btn"><ArrowUpRight /></button>
+                <button className="w-10 h-10 rounded-full bg-transparent hover:bg-black/5 flex items-center justify-center cursor-pointer transition-colors border-none"><ArrowUpRight /></button>
               </div>
 
               {card.chartData ? (
                 <>
-                  <p className="text-green mb-2">{card.value} <span className="text-meta text-muted font-normal">{card.trendLabel}</span></p>
-                  <div className="flex items-end gap-0.5" style={{ height: '32px' }}>
+                  <p className="text-[#22c55e] font-bold mb-2">{card.value} <span className="text-[0.8125rem] text-muted-foreground font-normal">{card.trendLabel}</span></p>
+                  <div className="flex items-end gap-0.5 h-8">
                     {card.chartData.map((h, i) => (
-                      <div key={i} className="chart-bar" style={{ height: `${h}%`, opacity: i === 7 ? 1 : 0.5 }} />
+                      <div key={i} className="flex-1 bg-[var(--color-chart-1)] rounded-t-sm" style={{ height: `${h}%`, opacity: i === 7 ? 1 : 0.5 }} />
                     ))}
                   </div>
                 </>
               ) : (
-                <p className="text-value">{card.value}</p>
+                <p className="text-[1.375rem] font-bold">{card.value}</p>
               )}
 
-              <div className="yellow-bar" style={{ width: card.accentWidth }} />
+              <div className="h-2 bg-[var(--color-chart-1)] rounded-t-md absolute bottom-0 left-0" style={{ width: card.accentWidth }} />
             </div>
           ))}
         </div>
@@ -116,12 +120,12 @@ const Overview: React.FC = () => {
       <div className="flex flex-col gap-4">
 
         {/* Top Selling Header */}
-        <div className="card card-padded-sm">
+        <div className="bg-card rounded-[1.5rem] shadow-[0_2px_10px_0_rgba(0,0,0,0.04)] p-5">
           <div className="flex justify-between items-start mb-1">
-            <h2 className="text-title">Top Selling Car</h2>
-            <button className="icon-btn text-muted text-lg tracking-widest">···</button>
+            <h2 className="text-lg font-semibold">Top Selling Car</h2>
+            <button className="w-10 h-10 rounded-full bg-transparent text-muted-foreground hover:bg-black/5 flex items-center justify-center cursor-pointer transition-colors border-none text-lg tracking-widest">···</button>
           </div>
-          <p className="text-meta text-muted">Discover the most popular choice.</p>
+          <p className="text-[0.8125rem] text-muted-foreground">Discover the most popular choice.</p>
         </div>
 
         {/* Car List */}
@@ -130,21 +134,21 @@ const Overview: React.FC = () => {
         ))}
 
         {/* Completed Payment */}
-        <div className="card card-padded-sm" style={{ paddingBottom: '2rem' }}>
+        <div className="bg-card rounded-[1.5rem] shadow-[0_2px_10px_0_rgba(0,0,0,0.04)] p-5 pb-8 relative overflow-hidden">
           <div className="flex justify-between items-center mb-3">
             <div className="flex items-center gap-3">
-              <div className="flex items-center justify-center rounded-lg bg-gray-50 p-2">
+              <div className="flex items-center justify-center rounded-lg bg-gray-50 p-2 text-foreground">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
               </div>
               <div>
-                <p className="text-label">Completed Payment</p>
-                <p className="text-meta text-muted">{COMPLETED_PAYMENT.id}</p>
+                <p className="text-sm font-medium">Completed Payment</p>
+                <p className="text-[0.8125rem] text-muted-foreground">{COMPLETED_PAYMENT.id}</p>
               </div>
             </div>
-            <button className="icon-btn"><ArrowUpRight /></button>
+            <button className="w-10 h-10 rounded-full bg-transparent hover:bg-black/5 flex items-center justify-center cursor-pointer transition-colors border-none"><ArrowUpRight /></button>
           </div>
-          <p className="text-value">{COMPLETED_PAYMENT.value}</p>
-          <div className="yellow-bar" style={{ width: COMPLETED_PAYMENT.accentWidth }} />
+          <p className="text-[1.375rem] font-bold">{COMPLETED_PAYMENT.value}</p>
+          <div className="h-2 bg-[var(--color-chart-1)] rounded-t-md absolute bottom-0 left-0" style={{ width: COMPLETED_PAYMENT.accentWidth }} />
         </div>
       </div>
 

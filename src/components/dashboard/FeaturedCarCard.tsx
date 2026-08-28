@@ -5,41 +5,41 @@ const FeaturedCarCard: React.FC = () => {
   const car = FEATURED_CAR;
 
   return (
-    <div className="card card-padded">
+    <div className="bg-card rounded-[1.5rem] shadow-[0_2px_10px_0_rgba(0,0,0,0.04)] p-6 relative overflow-hidden">
       {/* Header */}
       <div className="flex justify-between items-start mb-3">
         <div>
-          <p className="text-title">{car.name}</p>
-          <p className="text-meta text-muted">{car.subtitle}</p>
+          <p className="font-semibold text-lg">{car.name}</p>
+          <p className="text-[0.8125rem] text-muted-foreground">{car.subtitle}</p>
         </div>
-        <button className="icon-btn text-muted text-lg tracking-widest">···</button>
+        <button className="w-[38px] h-[38px] rounded-full bg-transparent text-muted-foreground hover:bg-black/5 flex items-center justify-center cursor-pointer transition-colors text-lg tracking-widest">···</button>
       </div>
 
       {/* Car Image */}
-      <div className="relative rounded-2xl overflow-hidden mb-4" style={{ height: '220px', background: '#f8f8f8' }}>
+      <div className="relative rounded-2xl overflow-hidden mb-4 bg-[#f8f8f8] h-[220px]">
         <img src={car.imageUrl} alt={car.name} className="w-full h-full object-cover" />
 
         {/* Carbon hotspot — top right */}
-        <div className="absolute flex items-center gap-1.5" style={{ top: '42%', right: '16%' }}>
-          <div className="hotspot-dot"></div>
-          <span className="hotspot-label">Carbon</span>
+        <div className="absolute flex items-center gap-1.5 top-[42%] right-[16%]">
+          <div className="w-3 h-3 rounded-full bg-white border-[3px] border-[#444] shadow-[0_0_0_3px_rgba(255,255,255,0.5)]"></div>
+          <span className="bg-white/90 backdrop-blur-md px-3 py-1 rounded-full text-xs font-semibold shadow-md">Carbon</span>
         </div>
 
         {/* Vibranium hotspot — bottom left */}
-        <div className="absolute flex items-center gap-1.5" style={{ bottom: '16%', left: '5%' }}>
-          <span className="hotspot-label">Vibranium</span>
-          <div className="hotspot-dot"></div>
+        <div className="absolute flex items-center gap-1.5 bottom-[16%] left-[5%]">
+          <span className="bg-white/90 backdrop-blur-md px-3 py-1 rounded-full text-xs font-semibold shadow-md">Vibranium</span>
+          <div className="w-3 h-3 rounded-full bg-white border-[3px] border-[#444] shadow-[0_0_0_3px_rgba(255,255,255,0.5)]"></div>
         </div>
       </div>
 
       {/* Footer */}
       <div className="flex justify-between items-center">
         <div className="flex gap-3">
-          <button className="action-btn-like">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FEBE00" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg>
+          <button className="w-11 h-11 rounded-xl bg-primary flex items-center justify-center cursor-pointer border-none">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-chart-1)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg>
           </button>
-          <button className="action-btn-dislike">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C4C3C6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/></svg>
+          <button className="w-11 h-11 rounded-xl bg-card border border-border flex items-center justify-center cursor-pointer">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-muted-foreground)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/></svg>
           </button>
         </div>
 
@@ -50,8 +50,8 @@ const FeaturedCarCard: React.FC = () => {
             { label: 'Seats', value: car.seats },
           ].map(({ label, value }) => (
             <div key={label} className="flex items-baseline gap-1">
-              <span className="text-meta text-muted">{label}</span>
-              <span className="text-title">{value}</span>
+              <span className="text-[0.8125rem] text-muted-foreground">{label}</span>
+              <span className="font-semibold text-lg">{value}</span>
             </div>
           ))}
         </div>
