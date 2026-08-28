@@ -1,54 +1,59 @@
 import React from 'react';
+import { FEATURED_CAR } from '../../data/cars';
 
 const FeaturedCarCard: React.FC = () => {
+  const car = FEATURED_CAR;
+
   return (
-    <div className="card" style={{ position: 'relative', overflow: 'hidden', padding: '2rem' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+    <div className="card card-padded">
+      {/* Header */}
+      <div className="flex justify-between items-start mb-3">
         <div>
-          <h2 className="h2" style={{ margin: 0 }}>Tesla Model Y</h2>
-          <p className="text-muted">Fully electric Crossover</p>
+          <p className="text-title">{car.name}</p>
+          <p className="text-meta text-muted">{car.subtitle}</p>
         </div>
-        <button className="icon-btn">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
-        </button>
+        <button className="icon-btn text-muted text-lg tracking-widest">···</button>
       </div>
 
-      <div style={{ position: 'relative', margin: '2rem 0', height: '300px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        {/* Placeholder for car image */}
-        <div style={{ width: '100%', height: '100%', backgroundColor: '#f5f6f8', borderRadius: '1rem', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-           <img src="https://images.unsplash.com/photo-1617788138017-80ad40651399?auto=format&fit=crop&q=80&w=800" alt="Tesla Model Y" style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '1rem' }} />
+      {/* Car Image */}
+      <div className="relative rounded-2xl overflow-hidden mb-4" style={{ height: '220px', background: '#f8f8f8' }}>
+        <img src={car.imageUrl} alt={car.name} className="w-full h-full object-cover" />
+
+        {/* Carbon hotspot — top right */}
+        <div className="absolute flex items-center gap-1.5" style={{ top: '42%', right: '16%' }}>
+          <div className="hotspot-dot"></div>
+          <span className="hotspot-label">Carbon</span>
         </div>
-        
-        {/* Hotspots */}
-        <div style={{ position: 'absolute', top: '40%', right: '20%', display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <div style={{ width: '16px', height: '16px', borderRadius: '50%', backgroundColor: 'rgba(255,255,255,0.8)', border: '4px solid #333', boxShadow: '0 0 0 4px rgba(255,255,255,0.5)' }}></div>
-            <div style={{ backgroundColor: 'rgba(255,255,255,0.9)', padding: '4px 12px', borderRadius: '9999px', fontSize: '12px', fontWeight: '500', boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }}>Carbon</div>
+
+        {/* Vibranium hotspot — bottom left */}
+        <div className="absolute flex items-center gap-1.5" style={{ bottom: '16%', left: '5%' }}>
+          <span className="hotspot-label">Vibranium</span>
+          <div className="hotspot-dot"></div>
         </div>
       </div>
 
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <div style={{ display: 'flex', gap: '1rem' }}>
-          <button style={{ width: '48px', height: '48px', borderRadius: '12px', backgroundColor: '#000', display: 'flex', alignItems: 'center', justifyContent: 'center', border: 'none', cursor: 'pointer' }}>
-             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#a3e635" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg>
+      {/* Footer */}
+      <div className="flex justify-between items-center">
+        <div className="flex gap-3">
+          <button className="action-btn-like">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FEBE00" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg>
           </button>
-          <button style={{ width: '48px', height: '48px', borderRadius: '12px', backgroundColor: '#fff', border: '1px solid #e4e4e7', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
-             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#71717a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"></path></svg>
+          <button className="action-btn-dislike">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C4C3C6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/></svg>
           </button>
         </div>
 
-        <div style={{ display: 'flex', gap: '2rem' }}>
-           <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px' }}>
-              <span className="text-muted" style={{ fontSize: '0.875rem' }}>Deals</span>
-              <span style={{ fontSize: '1.25rem', fontWeight: '600' }}>71</span>
-           </div>
-           <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px' }}>
-              <span className="text-muted" style={{ fontSize: '0.875rem' }}>Rate</span>
-              <span style={{ fontSize: '1.25rem', fontWeight: '600' }}>4.9</span>
-           </div>
-           <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px' }}>
-              <span className="text-muted" style={{ fontSize: '0.875rem' }}>Seats</span>
-              <span style={{ fontSize: '1.25rem', fontWeight: '600' }}>6</span>
-           </div>
+        <div className="flex gap-6">
+          {[
+            { label: 'Deals', value: car.deals },
+            { label: 'Rate', value: car.rating },
+            { label: 'Seats', value: car.seats },
+          ].map(({ label, value }) => (
+            <div key={label} className="flex items-baseline gap-1">
+              <span className="text-meta text-muted">{label}</span>
+              <span className="text-title">{value}</span>
+            </div>
+          ))}
         </div>
       </div>
     </div>
