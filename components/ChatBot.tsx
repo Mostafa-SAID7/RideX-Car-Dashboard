@@ -14,7 +14,13 @@ const ChatBot: React.FC = () => {
 
   useEffect(() => {
     if (isOpen && !chatRef.current) {
-        const ai = new GoogleGenAI({ apiKey: process.env.API_KEY! });
+        const apiKey = process.env.API_KEY;
+        if (!apiKey) {
+          setMessages([{ role: 'model', parts: [{ text: "The assistant is unavailable because no Gemini API key is configured." }] }]);
+          return;
+        }
+
+        const ai = new GoogleGenAI({ apiKey });
         chatRef.current = ai.chats.create({
             model: 'gemini-2.5-flash',
             config: {

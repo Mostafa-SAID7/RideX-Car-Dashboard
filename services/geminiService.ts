@@ -2,8 +2,6 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import { Guide, Post, Recommendation } from "../types";
 
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY! });
-
 export const getAiRecommendations = async (topic: string, content: (Post | Guide)[]): Promise<Recommendation[]> => {
   const contentSummaries = content.map(item => ({
     id: item.id,
@@ -23,6 +21,12 @@ export const getAiRecommendations = async (topic: string, content: (Post | Guide
   `;
 
   try {
+    const apiKey = process.env.API_KEY;
+    if (!apiKey) {
+      return [];
+    }
+
+    const ai = new GoogleGenAI({ apiKey });
     const response = await ai.models.generateContent({
       model: "gemini-2.5-flash",
       contents: prompt,
